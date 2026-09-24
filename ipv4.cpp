@@ -4,15 +4,17 @@
 
 namespace {
 
+// Checks if this character is a digit from 0 to 9.
 bool isDigit(char ch) {
     return ch >= '0' && ch <= '9';
 }
 
+// Checks if this character can be part of an IPv4 address or port.
 bool isTokenCharacter(char ch) {
     return isDigit(ch) || ch == '.' || ch == ':';
 }
 
-// Reads one unsigned decimal field without accepting excess digits or leading zeroes.
+// Reads one number digit by digit and checks its size and value.
 bool readNumber(const std::string& text, std::size_t& position,
                 std::size_t end, int maxDigits, int maxValue, int& value) {
     const std::size_t start = position;
@@ -33,6 +35,7 @@ bool readNumber(const std::string& text, std::size_t& position,
            (position - start == 1 || text[start] != '0');
 }
 
+// Checks one complete token for four octets and an optional port.
 bool parseToken(const std::string& text, std::size_t start, std::size_t end,
                 unsigned long& address, int& port) {
     std::size_t position = start;
@@ -72,6 +75,7 @@ bool parseToken(const std::string& text, std::size_t start, std::size_t end,
 
 }  // namespace
 
+// Searches the line for a valid IPv4 token and sets the output values.
 bool extractIPv4(const std::string& str, unsigned long& outAddress, int& outPort) {
     outAddress = 0;
     outPort = -1;

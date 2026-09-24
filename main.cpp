@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 
+// Keeps reading lines until END and prints the address found in each line.
 int main() {
     std::string line;
     while (true) {
